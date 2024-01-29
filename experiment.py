@@ -45,10 +45,12 @@ def run_test_face(
         answer,
         dollar_sign,
         x_sign,
+        simuli_location
 ):    
     global epi_clock
 
     trial_index = 0
+    face = visual.ImageStim(win, 'faces/img0.png')
     
     for trial in stimuli:
         trial_clock = core.Clock()
@@ -74,7 +76,7 @@ def run_test_face(
                 exp.addData('image_response', image_index)
                 break
             event.clearEvents()
-            image.draw()
+            face.draw()
             win.flip()
             trial_epi_time.append(epi_clock.getTime())
             core.wait(face_length/35.0)
@@ -101,7 +103,12 @@ def run_test_face(
         win.flip()
         delay_time = epi_clock.getTime()
         exp.addData('delay_presentation_time', delay_time)
-        core.wait(T_wait)
+
+        ISI = StaticPeriod()
+        ISI.start(T_wait)
+        face.setImage = stimuli_location * f'faces/img{trial_index+1}.png'
+        ISI.complete()
+
         exp.nextEntry()
         end_delay_time = epi_clock.getTime()
         exp.addData('delay_presentation_time', end_delay_time)
@@ -117,6 +124,7 @@ face_length = 3 # length of each face seconds
 num_trials = 100
 img_per_trial = 35
 feedback = False
+stimuli_location = './faces/'
 T_wait = 1 # seconds
 
 is_finished = False # Global flag
@@ -350,7 +358,7 @@ keys = epi_kb.waitKeys(keyList=['equal'])
 
 epi_clock = core.Clock() 
 
-run_test_face(exp,face_organized,win,kb,answers, dollar_sign,x_sign)
+run_test_face(exp,face_organized,win,kb,answers, dollar_sign,x_sign, stimuli_location)
 
 outro.setText(f'Congratulations!\nYou won ${int(score["current_score"])}!\nPress any button to complete the task.')
 outro.draw()
