@@ -66,11 +66,13 @@ def run_test_face(
         
         event.clearEvents()
         trial_epi_time = []
+        isomission = True
         for image_index, image in enumerate(trial):
             last_press = event.getKeys(keyList=['left', 'right'], timeStamped=trial_clock)
             if last_press:
                 #print(last_press)
                 response, response_time = last_press[-1]
+                isomission = False
                 #print(response)
                 exp.addData('response', response)
                 exp.addData('response_time', response_time)
@@ -81,7 +83,9 @@ def run_test_face(
             win.flip()
             trial_epi_time.append(epi_clock.getTime())
             core.wait(face_length/35.0)
-        
+            
+        residual = 0 if isomission else face_length-response_time
+            
         exp.addData('trial_epi', trial_epi_time)
         
         
@@ -106,7 +110,7 @@ def run_test_face(
         exp.addData('delay_presentation_time', delay_time)
 
         ISI = core.StaticPeriod()
-        ISI.start(T_wait)
+        ISI.start(T_wait+residual)
         if trial_index < (num_trials - 1):
             for i, _ in enumerate(face_set):
                 face_set[i] = visual.ImageStim(win, f'{stimuli_location}img{(trial_index+1)*35 + 1 + i}.png')
