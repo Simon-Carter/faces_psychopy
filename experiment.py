@@ -193,7 +193,7 @@ msg_intro_1 = visual.ImageStim(
     'stimuli/dollar_sign.png'
 )
 
-custom_intro = [visual.ImageStim(win, f'instructions/inst{i}.png', size=[1,0.5]) for i in range(1,10)]
+custom_intro = [visual.ImageStim(win, f'instructions/Instructions_full/inst{i}.png', size=[1,0.5]) for i in range(1,7)]
 
 
 
