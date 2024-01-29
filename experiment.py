@@ -52,9 +52,6 @@ def run_test_face(
 
     trial_index = 0
     face_set = [visual.ImageStim(win, f'faces/img{i+1}.png') for i in range(img_per_trial)]
-
-
-    face = visual.ImageStim(win, 'faces/img1.png')
     
     for trial in stimuli:
         trial_clock = core.Clock()
@@ -110,7 +107,7 @@ def run_test_face(
 
         ISI = core.StaticPeriod()
         ISI.start(T_wait)
-        if trial_index < num_trials
+        if trial_index < (num_trials - 1):
             for i, _ in enumerate(face_set):
                 face_set[i] = visual.ImageStim(win, f'{stimuli_location}img{(trial_index+1)*35 + 1 + i}.png')
                 print(f'{stimuli_location}img{(trial_index+1)*35 + 1 + i}.png')
@@ -129,7 +126,7 @@ stim_pack_name = "BB"
 jitter_filename = "jitter_120_final_1.csv"
 
 face_length = 3 # length of each face seconds
-num_trials = 10
+num_trials = 100
 img_per_trial = 35
 feedback = False
 stimuli_location = './faces/'
@@ -196,7 +193,7 @@ custom_intro = [visual.ImageStim(win, f'instructions/inst{i}.png', size=[1,0.5])
 
 
 
-face_organized = [[i for i in range(35)] for _ in range(n)]
+face_organized = [[i for i in range(35)] for _ in range(num_trials)]
 #face_all = [visual.ImageStim(win, f'faces/img{i+1}.png') for i in range(0,img_per_trial*num_trials)]
 #face_organized = [face_all[i:i + img_per_trial] for i in range(0, len(face_all), img_per_trial)]
 #custom_image = [visual.ImageStim(win, f'faces/img{i}.png') for i in face_id_list]
