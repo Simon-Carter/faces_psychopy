@@ -110,10 +110,10 @@ def run_test_face(
 
         ISI = core.StaticPeriod()
         ISI.start(T_wait)
-
-        for i, _ in enumerate(face_set):
-            face_set[i] = visual.ImageStim(win, f'{stimuli_location}img{(trial_index+1)*35 + 1 + i}.png')
-            print(f'{stimuli_location}img{(trial_index+1)*35 + 1 + i}.png')
+        if trial_index < num_trials
+            for i, _ in enumerate(face_set):
+                face_set[i] = visual.ImageStim(win, f'{stimuli_location}img{(trial_index+1)*35 + 1 + i}.png')
+                print(f'{stimuli_location}img{(trial_index+1)*35 + 1 + i}.png')
 
         ISI.complete()
 
@@ -195,8 +195,10 @@ msg_intro_1 = visual.ImageStim(
 custom_intro = [visual.ImageStim(win, f'instructions/inst{i}.png', size=[1,0.5]) for i in range(1,10)]
 
 
-face_all = [visual.ImageStim(win, f'faces/img{i+1}.png') for i in range(0,img_per_trial*num_trials)]
-face_organized = [face_all[i:i + img_per_trial] for i in range(0, len(face_all), img_per_trial)]
+
+face_organized = [[i for i in range(35)] for _ in range(n)]
+#face_all = [visual.ImageStim(win, f'faces/img{i+1}.png') for i in range(0,img_per_trial*num_trials)]
+#face_organized = [face_all[i:i + img_per_trial] for i in range(0, len(face_all), img_per_trial)]
 #custom_image = [visual.ImageStim(win, f'faces/img{i}.png') for i in face_id_list]
 
 msg_intro_2 = visual.TextBox2(
