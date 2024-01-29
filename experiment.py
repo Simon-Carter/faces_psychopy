@@ -12,6 +12,7 @@ file.close()
 def finish_task():
     global is_finished
     is_finished = True
+    is_finished = True
 
 def set_positive_feedback(feedback, gain=None):
     if not gain:
@@ -50,7 +51,7 @@ def run_test_face(
     global epi_clock
 
     trial_index = 0
-    face = visual.ImageStim(win, 'faces/img0.png')
+    face = visual.ImageStim(win, 'faces/img1.png')
     
     for trial in stimuli:
         trial_clock = core.Clock()
@@ -104,9 +105,9 @@ def run_test_face(
         delay_time = epi_clock.getTime()
         exp.addData('delay_presentation_time', delay_time)
 
-        ISI = StaticPeriod()
+        ISI = core.StaticPeriod()
         ISI.start(T_wait)
-        face.setImage = stimuli_location * f'faces/img{trial_index+1}.png'
+        face.setImage = f'{stimuli_location}img{trial_index+1}.png'
         ISI.complete()
 
         exp.nextEntry()
@@ -121,7 +122,7 @@ stim_pack_name = "BB"
 jitter_filename = "jitter_120_final_1.csv"
 
 face_length = 3 # length of each face seconds
-num_trials = 100
+num_trials = 10
 img_per_trial = 35
 feedback = False
 stimuli_location = './faces/'
