@@ -51,7 +51,7 @@ def run_test_face(
     global epi_clock
 
     trial_index = 0
-    face_set = [f'faces/img{i + 1}' for i in range(img_per_trial)]
+    face_set = [visual.ImageStim(win, f'faces/img{i+1}.png') for i in range(img_per_trial)]
 
 
     face = visual.ImageStim(win, 'faces/img1.png')
@@ -80,7 +80,7 @@ def run_test_face(
                 exp.addData('image_response', image_index)
                 break
             event.clearEvents()
-            face_set[1].draw()
+            face_set[image_index].draw()
             win.flip()
             trial_epi_time.append(epi_clock.getTime())
             core.wait(face_length/35.0)
@@ -112,7 +112,8 @@ def run_test_face(
         ISI.start(T_wait)
 
         for i, _ in enumerate(face_set):
-            face_set[i].setImage = f'{stimuli_location}img{(trial_index+1)*35 + 1 + i}.png'
+            face_set[i] = visual.ImageStim(win, f'{stimuli_location}img{(trial_index+1)*35 + 1 + i}.png')
+            print(f'{stimuli_location}img{(trial_index+1)*35 + 1 + i}.png')
 
         ISI.complete()
 
